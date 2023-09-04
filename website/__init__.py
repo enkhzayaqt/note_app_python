@@ -19,7 +19,9 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
 
     from .models import User, Note
-    create_database(app)
+    with app.app_context():
+        db.create_all()
+
     return app
 
 def create_database(app):
